@@ -1,6 +1,8 @@
 # swaglabs-appium-tests
 Automated UI tests for Swag Labs using Appium.
 
+This repo is for personal learning purposes
+
 Site:https://www.saucedemo.com
 
 Login Feature Test Cases
