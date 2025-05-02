@@ -1,20 +1,19 @@
 # swaglabs-appium-tests
 Automated UI tests for Swag Labs using Appium.
 
-This repo is for personal learning purposes
+This repo is for personal learning purposes.
 
+Site: https://www.saucedemo.com
 
-Site:https://www.saucedemo.com
+---
 
+**IMPORTANT COMMANDS**
 
-IMPORTANT COMMANDS
-
-nnpx wdio run wdio.conf.js
-
-nnpx wdio run wdio.conf.js --watch
-
-nnpx wdio run wdio.conf.js --spec ./test/specs/test.e2e.js
-
+```bash
+npx wdio run wdio.conf.js
+npx wdio run wdio.conf.js --watch
+npx wdio run wdio.conf.js --spec ./test/specs/test.e2e.js
+```
 
 
 Login Feature Test Cases
