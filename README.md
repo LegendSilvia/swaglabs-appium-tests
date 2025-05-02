@@ -5,6 +5,11 @@ This repo is for personal learning purposes
 
 Site:https://www.saucedemo.com
 
+IMPORTANT COMMANDS
+npx wdio run wdio.conf.js
+npx wdio run wdio.conf.js --watch
+npx wdio run wdio.conf.js --spec ./test/specs/test.e2e.js
+
 Login Feature Test Cases
 
 | Test Case ID | Test Scenario                         | Test Steps                                                                 | Expected Result                                         | Test Type              |
