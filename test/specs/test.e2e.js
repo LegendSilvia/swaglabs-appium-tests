@@ -4,13 +4,10 @@ const SecurePage = require('../pageobjects/secure.page')
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {
-        await LoginPage.open()
+        await LoginPage.open();
+        await LoginPage.login('standard_user', 'secret_sauce');
 
-        await LoginPage.login('tomsmith', 'SuperSecretPassword!')
-        await expect(SecurePage.flashAlert).toBeExisting()
-        await expect(SecurePage.flashAlert).toHaveText(
-            expect.stringContaining('You logged into a secure area!'))
-        await expect(SecurePage.flashAlert).toMatchElementSnapshot('flashAlert')
-    })
-})
+        await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+    });
+});
 
