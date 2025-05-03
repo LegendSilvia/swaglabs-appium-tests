@@ -1,6 +1,6 @@
 # 🚀 Automated UI Tests for Swag Labs
 
-This repository contains automated end-to-end UI tests for [Swag Labs](https://www.saucedemo.com), built using **WebdriverIO** and **Appium**.  
+This repository contains automated UI tests for [Swag Labs](https://www.saucedemo.com), built using **WebdriverIO** and **Appium**.  
 The purpose of this project is personal learning and practice with modern UI testing tools.
 
 ---
