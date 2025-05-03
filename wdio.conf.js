@@ -1,63 +1,48 @@
-const capabilities = [{
-    browserName: 'chrome',
-    'goog:chromeOptions': {
-        args: [
-            '--disable-blink-features=AutomationControlled',
-            '--disable-features=AutofillServerCommunication,PasswordManagerEnabled',
-            '--no-default-browser-check',
-            '--no-first-run',
-            '--reduce-security-for-testing',
-            '--disable-notifications',
-            '--disable-popup-blocking',
-            '--disable-save-password-bubble',
-            '--user-data-dir=C:/tmp/test-profile'
-        ],
-        prefs: {
-            'profile.password_manager_enabled': false,
-            'credentials_enable_service': false
-        }
-    }
-}];
-
-console.log('🚀 Launching with capabilities:\n', JSON.stringify(capabilities, null, 2));
+const { execSync } = require('child_process');
 
 exports.config = {
-    //
-    // Runner Configuration
     runner: 'local',
-
-    //
-    // Specify Test Files
-    specs: [
-        './test/specs/**/*.js'
-    ],
-
-    //
-    // Capabilities
+    specs: ['./test/specs/**/*.js'],
     maxInstances: 1,
-    capabilities: capabilities,
 
-    //
-    // Test Config
+    capabilities: [{
+        maxInstances: 1,
+        browserName: 'chrome',
+        'goog:chromeOptions': {
+            args: [
+                '--user-data-dir=C:\\Users\\tanwa\\chrome-test-profile',
+                '--profile-directory=Default',
+                '--disable-notifications'
+            ],
+            prefs: {
+                'credentials_enable_service': false,
+                'profile.password_manager_enabled': false
+            }
+        }
+    }],
+
     logLevel: 'info',
     bail: 0,
-    baseUrl: 'http://localhost',
+    baseUrl: 'https://www.saucedemo.com',
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
+    // services: ['chromedriver'],
 
-    //
-    // Services
-    services: [],
-
-    //
-    // Framework
     framework: 'mocha',
     reporters: ['spec'],
 
-    //
-    // Hooks (optional)
-    before: function () {
-        console.log('🧪 Tests starting...');
+    mochaOpts: {
+        ui: 'bdd',
+        timeout: 60000
+    },
+
+    onPrepare: function () {
+        try {
+            execSync('taskkill /F /IM chrome.exe /T');
+            console.log('✅ Closed all Chrome instances');
+        } catch (e) {
+            console.warn('⚠️ Could not close Chrome:', e.message);
+        }
     }
-};
+}
