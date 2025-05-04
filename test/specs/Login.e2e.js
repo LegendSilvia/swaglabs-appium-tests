@@ -188,6 +188,146 @@ describe('Login Feature', () => {
             throw error;
         }
     });
+
+    it('TC007 - SQL Injection attempt in login', async () => {
+        const tcId = 'TC007';
+        const description = 'SQL Injection attempt in username and password fields';
+
+        try {
+            await LoginPage.login(' OR 1=1 --', ' OR 1=1 --');
+
+            const errorMsg = await $('h3[data-test="error"]');
+
+            await browser.waitUntil(
+                async () => await errorMsg.isDisplayed(),
+                {
+                    timeout: 5000,
+                    timeoutMsg: 'Error message did not appear in time'
+                }
+            );
+
+            const text = await errorMsg.getText();
+            // console.warn(`<<< DEBUG: Error Text: ${text} >>>`);
+
+            await expect(errorMsg).toBeDisplayed();
+            await expect(text).toContain('Epic sadface: Username and password do not match any user in this service');
+
+            results.push({ tcId, description, status: '✅ PASS' });
+        } catch (error) {
+            console.error(`${tcId} failed with error:`, error.message);
+            results.push({ tcId, description, status: '❌ FAIL' });
+            throw error;
+        }
+    });
+
+    it('TC008 - XSS in login fields', async () => {
+        const tcId = 'TC008';
+        const description = 'XSS in login fields';
+
+        try {
+            await LoginPage.login('<script>alert(1)</script>', '<script>alert(1)</script>');
+
+            const errorMsg = await $('h3[data-test="error"]');
+
+            await browser.waitUntil(
+                async () => await errorMsg.isDisplayed(),
+                {
+                    timeout: 5000,
+                    timeoutMsg: 'Error message did not appear in time'
+                }
+            );
+
+            const text = await errorMsg.getText();
+            // console.warn(`<<< DEBUG: Error Text: ${text} >>>`);
+
+            await expect(errorMsg).toBeDisplayed();
+            await expect(text).toContain('Epic sadface: Username and password do not match any user in this service');
+
+            results.push({ tcId, description, status: '✅ PASS' });
+        } catch (error) {
+            console.error(`${tcId} failed with error:`, error.message);
+            results.push({ tcId, description, status: '❌ FAIL' });
+            throw error;
+        }
+    });
+
+    it('TC009 - Browser "Back" after logout', async () => {
+        const tcId = 'TC009';
+        const description = 'Browser "Back" after logout';
+
+        try {
+            await LoginPage.login('standard_user', 'secret_sauce');
+            await $('#react-burger-menu-btn').click();
+            await $('#logout_sidebar_link').click();
+
+            await browser.back();
+
+            await expect(browser).toHaveUrl('https://www.saucedemo.com/');
+
+            results.push({ tcId, description, status: '✅ PASS' });
+        } catch (error) {
+            results.push({ tcId, description, status: '❌ FAIL' });
+            throw error;
+        }
+    });
+
+    it('TC010 - Username case-insensitivity', async () => {
+        const tcId = 'TC010';
+        const description = 'Login with mixed-case username';
+
+        try {
+            await LoginPage.login('Standard_User', 'secret_sauce');
+
+            const errorMsg = await $('h3[data-test="error"]');
+
+            await browser.waitUntil(
+                async () => await errorMsg.isDisplayed(),
+                {
+                    timeout: 5000,
+                    timeoutMsg: 'Error message did not appear in time'
+                }
+            );
+
+            const text = await errorMsg.getText();
+            // console.warn(`<<< DEBUG: Error Text: ${text} >>>`);
+
+            await expect(errorMsg).toBeDisplayed();
+            await expect(text).toContain('Epic sadface: Username and password do not match any user in this service');
+
+            results.push({ tcId, description, status: '✅ PASS' });;
+        } catch (error) {
+            results.push({ tcId, description, status: '❌ FAIL' });
+            throw error;
+        }
+    });
+
+    it('TC011 - Login in multiple tabs', async () => {
+        const tcId = 'TC011';
+        const description = 'Login while already logged in (another tab)';
+
+        try {
+            await LoginPage.login('standard_user', 'secret_sauce');
+
+            const handlesBefore = await browser.getWindowHandles();
+
+            // Open new tab
+            await browser.newWindow('https://www.saucedemo.com');
+            await LoginPage.login('standard_user', 'secret_sauce');
+
+            // Verify session is still active in both tabs
+            const currentUrl = await browser.getUrl();
+            await expect(currentUrl).toContain('inventory');
+
+            // Close new tab and switch back
+            await browser.closeWindow();
+            await browser.switchToWindow(handlesBefore[0]);
+
+            await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+
+            results.push({ tcId, description, status: '✅ PASS' });
+        } catch (error) {
+            results.push({ tcId, description, status: '❌ FAIL' });
+            throw error;
+        }
+    });
 });
-
-
