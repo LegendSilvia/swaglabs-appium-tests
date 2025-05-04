@@ -44,4 +44,3 @@ Login Feature Test Cases
 | TC009        | Browser "Back" after logout            | Login > Logout > Press back button                                        | Should redirect to login page                            | Security               |
 | TC010        | Username case-insensitivity            | Enter username in any case                                                | Login should treat email as case-insensitive             | Usability              |
 | TC011        | Login while already logged in (another tab) | Log in twice in different tabs                                       | Session handled correctly                                | Session Management     |
-| TC012        | Page load performance                  | Load login page on slow network                                           | Page loads in under 2 seconds                            | Performance            |
