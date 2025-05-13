@@ -18,8 +18,8 @@ describe('Login Feature', () => {
         console.log('================================\n');
     });
 
-    it('TC001 - Login with valid credentials', async () => {
-        const tcId = 'TC001';
+    it('TC_LOGIN_001 - Login with valid credentials', async () => {
+        const tcId = 'TC_LOGIN_001';
         const description = 'Login with valid credentials';
 
         try {
@@ -32,8 +32,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC002 - Login with invalid password', async () => {
-        const tcId = 'TC002';
+    it('TC_LOGIN_002 - Login with invalid password', async () => {
+        const tcId = 'TC_LOGIN_002';
         const description = 'Login with invalid password';
 
         try {
@@ -65,8 +65,8 @@ describe('Login Feature', () => {
 
 
 
-    it('TC003 - Login with unregistered username', async () => {
-        const tcId = 'TC003';
+    it('TC_LOGIN_003 - Login with unregistered username', async () => {
+        const tcId = 'TC_LOGIN_003';
         const description = 'Login with unregistered username';
 
         try {
@@ -96,8 +96,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC004 - Login with empty fields', async () => {
-        const tcId = 'TC004';
+    it('TC_LOGIN_004 - Login with empty fields', async () => {
+        const tcId = 'TC_LOGIN_004';
         const description = 'Login with empty fields';
 
         try {
@@ -127,8 +127,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC005 - Login with only username filled', async () => {
-        const tcId = 'TC005';
+    it('TC_LOGIN_005 - Login with only username filled', async () => {
+        const tcId = 'TC_LOGIN_005';
         const description = 'Login with only username filled';
 
         try {
@@ -158,8 +158,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC006 - Login with only password filled', async () => {
-        const tcId = 'TC006';
+    it('TC_LOGIN_006 - Login with only password filled', async () => {
+        const tcId = 'TC_LOGIN_006';
         const description = 'Login with only password filled';
 
         try {
@@ -189,8 +189,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC007 - SQL Injection attempt in login', async () => {
-        const tcId = 'TC007';
+    it('TC_LOGIN_007 - SQL Injection attempt in login', async () => {
+        const tcId = 'TC_LOGIN_007';
         const description = 'SQL Injection attempt in username and password fields';
 
         try {
@@ -220,8 +220,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC008 - XSS in login fields', async () => {
-        const tcId = 'TC008';
+    it('TC_LOGIN_008 - XSS in login fields', async () => {
+        const tcId = 'TC_LOGIN_008';
         const description = 'XSS in login fields';
 
         try {
@@ -251,8 +251,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC009 - Browser "Back" after logout', async () => {
-        const tcId = 'TC009';
+    it('TC_LOGIN_009 - Browser "Back" after logout', async () => {
+        const tcId = 'TC_LOGIN_009';
         const description = 'Browser "Back" after logout';
 
         try {
@@ -271,8 +271,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC010 - Username case-insensitivity', async () => {
-        const tcId = 'TC010';
+    it('TC_LOGIN_010 - Username case-insensitivity', async () => {
+        const tcId = 'TC_LOGIN_010';
         const description = 'Login with mixed-case username';
 
         try {
@@ -301,8 +301,8 @@ describe('Login Feature', () => {
         }
     });
 
-    it('TC011 - Login in multiple tabs', async () => {
-        const tcId = 'TC011';
+    it('TC_LOGIN_011 - Login in multiple tabs', async () => {
+        const tcId = 'TC_LOGIN_011';
         const description = 'Login while already logged in (another tab)';
 
         try {
