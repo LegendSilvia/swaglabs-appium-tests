@@ -57,20 +57,31 @@ describe('Login Feature', () => {
 
         try {
             await LoginPage.login('standard_user', 'secret_sauce');
-            await expect(browser).toHaveUrlContaining('inventory.html');
+            await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
+
+            const btnR = await InventoryPage.removeBackpackBtn;
+            if (await btnR.isExisting()) {
+                await btnR.scrollIntoView();
+                await btnR.click();
+                // Wait for it to switch back to "Add to Cart"
+                await InventoryPage.backpackAddToCartBtn.waitForExist({ timeout: 5000 });
+            }
 
             // Click the "Add to Cart" button
-            let addToCartBtn = await InventoryPage.backpackAddToCartBtn;
-            await addToCartBtn.waitForExist({ timeout: 3000 });
+            const addToCartBtn = await InventoryPage.backpackAddToCartBtn;
+            await addToCartBtn.waitForExist({ timeout: 5000 });
+            await addToCartBtn.scrollIntoView();
             await addToCartBtn.click();
 
-            // Re-fetch the new "Remove" button (it has a different selector now)
-            const removeBtn = await $('[data-test="remove-sauce-labs-backpack"]');
-            await removeBtn.waitForExist({ timeout: 3000 });
+            // Wait for the new "Remove" button to appear
+            const removeBtn = await InventoryPage.removeBackpackBtn;
+            await removeBtn.waitForExist({ timeout: 5000 });
+
+            // Verify text
             const buttonText = await removeBtn.getText();
             expect(buttonText).toBe('Remove');
 
-            // Check cart badge shows "1"
+            // Check cart count
             const cartCount = await InventoryPage.getCartCount();
             expect(cartCount).toBe(1);
 
